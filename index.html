@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pete's of Mind — House Sitting &amp; Home Check-Ins</title>
+  <meta name="description" content="Pete's of Mind: house sitting while you're away. Plant watering, pet care, and home check-ins so everything's okay when you get back.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf6ef;
+      --paper: #ffffff;
+      --ink: #23302a;
+      --muted: #5b6b62;
+      --green: #2f6b4f;
+      --green-dark: #24543e;
+      --sage: #e6efe8;
+      --clay: #d9825b;
+      --line: #e7e1d6;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: "Fraunces", Georgia, serif;
+      line-height: 1.15;
+      margin: 0 0 .5em;
+      letter-spacing: -0.01em;
+    }
+    a { color: var(--green); }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(250, 246, 239, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: "Fraunces", Georgia, serif; font-weight: 700; font-size: 1.25rem;
+      color: var(--ink); text-decoration: none;
+    }
+    .brand svg { flex: none; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: .95rem; }
+    .nav-links a:hover { color: var(--green); }
+    @media (max-width: 640px) { .nav-links a:not(.btn) { display: none; } }
+
+    .btn {
+      display: inline-block;
+      background: var(--green); color: #fff !important;
+      padding: 12px 22px; border-radius: 999px;
+      font-weight: 600; text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn.small { padding: 9px 18px; font-size: .9rem; }
+    .btn.ghost { background: transparent; color: var(--green) !important; border: 2px solid var(--green); }
+    .btn.ghost:hover { background: var(--sage); }
+
+    /* Hero */
+    .hero { padding: 88px 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+    .eyebrow {
+      display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--clay); margin-bottom: 16px;
+    }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
+    .hero h1 em { font-style: normal; color: var(--green); }
+    .hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 34em; margin: 0 0 32px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-art {
+      background: var(--sage); border-radius: 28px; aspect-ratio: 1 / 1;
+      display: grid; place-items: center; position: relative; overflow: hidden;
+    }
+    @media (max-width: 820px) {
+      .hero { padding: 56px 0 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-art { max-width: 380px; }
+    }
+
+    /* Sections */
+    section { padding: 80px 0; }
+    .section-head { max-width: 620px; margin-bottom: 44px; }
+    .section-head h2 { font-size: clamp(1.9rem, 3.5vw, 2.5rem); }
+    .section-head p { color: var(--muted); font-size: 1.08rem; margin: 0; }
+
+    .services { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card {
+      background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 30px 28px;
+    }
+    .card .icon {
+      width: 52px; height: 52px; border-radius: 14px; background: var(--sage);
+      display: grid; place-items: center; margin-bottom: 20px;
+    }
+    .card h3 { font-size: 1.35rem; }
+    .card p { color: var(--muted); margin: 0; }
+    @media (max-width: 820px) { .cards { grid-template-columns: 1fr; } }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; counter-reset: step; }
+    .step { position: relative; padding-top: 64px; }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; top: 0; left: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      display: grid; place-items: center;
+      font-family: "Fraunces", Georgia, serif; font-weight: 700; font-size: 1.2rem;
+    }
+    .step h3 { font-size: 1.25rem; }
+    .step p { color: var(--muted); margin: 0; }
+    @media (max-width: 820px) { .steps { grid-template-columns: 1fr; gap: 28px; } }
+
+    /* Contact */
+    .contact { padding-top: 0; }
+    .contact-box {
+      background: var(--green); color: #fff; border-radius: 28px;
+      padding: 56px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center;
+    }
+    .contact-box h2 { font-size: clamp(1.9rem, 3.5vw, 2.5rem); color: #fff; }
+    .contact-box p { color: #d8e8de; margin: 0; font-size: 1.08rem; }
+    .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .contact-list a {
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px; padding: 16px 20px;
+      color: #fff; text-decoration: none; font-weight: 600;
+      transition: background .2s;
+    }
+    .contact-list a:hover { background: rgba(255,255,255,.18); }
+    .contact-list small { display: block; font-weight: 400; color: #cfe2d6; font-size: .85rem; }
+    @media (max-width: 820px) {
+      .contact-box { grid-template-columns: 1fr; padding: 36px 28px; }
+    }
+
+    footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Pete's of Mind home">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect width="34" height="34" rx="10" fill="#2f6b4f"/>
+          <path d="M8 17.5 17 10l9 7.5V26a1 1 0 0 1-1 1h-5v-6h-6v6H9a1 1 0 0 1-1-1z" fill="#faf6ef"/>
+          <path d="M17 18.6c-1-1.3-3.2-.9-3.2.9 0 1.3 1.7 2.4 3.2 3.5 1.5-1.1 3.2-2.2 3.2-3.5 0-1.8-2.2-2.2-3.2-.9z" fill="#d9825b"/>
+        </svg>
+        Pete's of Mind
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#how">How it works</a>
+        <a class="btn small" href="#contact">Contact Pete</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">House sitting &amp; home check-ins</span>
+          <h1>Go away. Pete's got it.<br><em>Peace of mind</em> while you're gone.</h1>
+          <p class="lead">Whether you're away for a weekend or a few weeks, Pete stops by to water the plants, look after the pets, and make sure everything at home is just the way you left it.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Book a visit</a>
+            <a class="btn ghost" href="#services">See services</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 320 320" width="82%" height="82%">
+            <!-- ground -->
+            <ellipse cx="160" cy="268" rx="130" ry="14" fill="#cfe0d4"/>
+            <!-- house -->
+            <path d="M70 150 160 78l90 72v110a6 6 0 0 1-6 6H76a6 6 0 0 1-6-6z" fill="#faf6ef"/>
+            <path d="M56 158 160 72l104 86" fill="none" stroke="#2f6b4f" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- door -->
+            <rect x="140" y="196" width="40" height="70" rx="6" fill="#2f6b4f"/>
+            <circle cx="171" cy="232" r="3" fill="#faf6ef"/>
+            <!-- windows -->
+            <rect x="92" y="170" width="34" height="34" rx="5" fill="#f3d9b9"/>
+            <rect x="194" y="170" width="34" height="34" rx="5" fill="#f3d9b9"/>
+            <path d="M109 170v34M92 187h34M211 170v34M194 187h34" stroke="#faf6ef" stroke-width="3"/>
+            <!-- heart above door -->
+            <path d="M160 140c-4-6-15-4-15 4 0 6 8 11 15 16 7-5 15-10 15-16 0-8-11-10-15-4z" fill="#d9825b"/>
+            <!-- plant -->
+            <rect x="238" y="240" width="30" height="26" rx="4" fill="#d9825b"/>
+            <path d="M253 240c0-18-12-24-20-26 2 10 8 20 20 26zM253 240c0-22 10-30 20-32-1 12-8 24-20 32z" fill="#2f6b4f"/>
+            <!-- cat -->
+            <g transform="translate(46 222)">
+              <ellipse cx="22" cy="34" rx="20" ry="12" fill="#23302a"/>
+              <circle cx="12" cy="18" r="11" fill="#23302a"/>
+              <path d="M4 12 3 0l9 8zM20 12l1-12-9 8z" fill="#23302a"/>
+              <path d="M40 36c10-2 12-12 6-16" fill="none" stroke="#23302a" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="8" cy="17" r="1.8" fill="#f3d9b9"/>
+              <circle cx="16" cy="17" r="1.8" fill="#f3d9b9"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">What Pete does</span>
+          <h2>Everything your home needs while you're away</h2>
+          <p>Tell Pete what matters to you. Every visit is shaped around your home, your plants, and your pets.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2f6b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 20h10"/><path d="M12 20v-8"/><path d="M12 12c0-4-3-6-7-6 0 4 3 6 7 6z"/><path d="M12 12c0-5 3-8 7-8 0 5-3 8-7 8z"/></svg>
+            </div>
+            <h3>Plant watering</h3>
+            <p>Indoor or out, your plants get watered on schedule so you don't come home to anything wilted.</p>
+          </article>
+          <article class="card">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2f6b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="10" r="2"/><circle cx="9.5" cy="5.5" r="2"/><circle cx="14.5" cy="5.5" r="2"/><circle cx="18.5" cy="10" r="2"/><path d="M12 12c-3 0-5.5 3.5-5.5 6 0 1.7 1.5 2.5 3 2 1-.3 1.7-.5 2.5-.5s1.5.2 2.5.5c1.5.5 3-.3 3-2 0-2.5-2.5-6-5.5-6z"/></svg>
+            </div>
+            <h3>Pet care</h3>
+            <p>Feeding, fresh water, and some company for the pets who'd rather stay home while you travel.</p>
+          </article>
+          <article class="card">
+            <div class="icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2f6b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="m9 15 2 2 4-4"/></svg>
+            </div>
+            <h3>Home check-ins</h3>
+            <p>A general walk-through to make sure everything's okay. One less thing to wonder about while you're gone.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>Simple from start to finish</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Reach out</h3>
+            <p>Contact Pete with your dates and what you need: plants, pets, a check-in, or all three.</p>
+          </div>
+          <div class="step">
+            <h3>Make a plan</h3>
+            <p>Go over the details together: how often to visit, feeding routines, which plants need what.</p>
+          </div>
+          <div class="step">
+            <h3>Enjoy your trip</h3>
+            <p>Pete takes care of things at home, so you can relax knowing everything's in good hands.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-box">
+          <div>
+            <h2>Heading out soon?</h2>
+            <p>Get in touch with Pete to check availability and set up your visits.</p>
+          </div>
+          <!-- TODO: replace the placeholder phone number and email below with Pete's real contact details -->
+          <ul class="contact-list">
+            <li>
+              <a href="tel:+10000000000">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                <span>[Pete's phone number]<small>Call or text</small></span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:pete@example.com?subject=House%20sitting%20request">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+                <span>[Pete's email]<small>Send your dates and what you need</small></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year">2026</span> Pete's of Mind · House sitting &amp; home check-ins</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
